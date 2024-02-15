@@ -10,7 +10,7 @@ async function checkWeather(city){
 
     if(response.status == 404){
         document.querySelector(".error").style.display = "block";
-        document.weather(".weather").style.display = "none";
+        document.querySelector(".weather").style.display = "none";
     } else {
         var data = await response.json();
 
@@ -46,10 +46,13 @@ async function checkWeather(city){
 
 }
 
-searchBtn.addEventListener("click", ()=>{
-    checkWeather(searchBox.value);
+searchBox.addEventListener("keypress", (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault(); // Evita el comportamiento predeterminado de presionar Enter en un formulario
+        checkWeather(searchBox.value); // Llama a la función checkWeather con el valor del input de búsqueda
+    }
+});
 
-    
-})
-
-
+searchBtn.addEventListener("click", () => {
+    checkWeather(searchBox.value); // Continúa escuchando el evento de clic en el botón de búsqueda
+});
